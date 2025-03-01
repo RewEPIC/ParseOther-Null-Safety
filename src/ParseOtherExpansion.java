@@ -41,6 +41,7 @@ public class ParseOtherExpansion extends PlaceholderExpansion {
     OfflinePlayer player;
     if (unsafe) {
       String user = PlaceholderAPI.setPlaceholders(p, ("%" + strings[0] + "%"));
+      if (isEmpty(user)) return "";
       if (user.contains("%")) {
         try {
           UUID id = UUID.fromString(strings[0]);
@@ -62,6 +63,7 @@ public class ParseOtherExpansion extends PlaceholderExpansion {
       }
     } else {
       String user = strings[0];
+      if (isEmpty(user)) return "";
       try {
         UUID id = UUID.fromString(user);
         player = Bukkit.getOfflinePlayer(id);
@@ -79,4 +81,7 @@ public class ParseOtherExpansion extends PlaceholderExpansion {
     return PlaceholderAPI.setPlaceholders(player, placeholder);
   }
   
+  public boolean isEmpty(String s) {
+    return s == null || s.isEmpty();
+  }
 }
